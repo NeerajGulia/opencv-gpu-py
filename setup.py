@@ -15,7 +15,7 @@ def pkgconfig(*packages, **kw):
     
     env = os.environ.copy()
     kw = {}
-    for key, value in flag_map.iteritems():
+    for key, value in iter(flag_map.items()):
         kw[value] = []
 
     command = ['pkg-config', '--libs', '--cflags', ' '.join(packages)]
@@ -29,7 +29,7 @@ def pkgconfig(*packages, **kw):
             value = token
         
         kw.setdefault(arg, []).append(value)
-    for key, value in kw.iteritems(): # remove duplicated
+    for key, value in iter(kw.items()): # remove duplicated
         kw[key] = list(set(value))
     return kw
 
